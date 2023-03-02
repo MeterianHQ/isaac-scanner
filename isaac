@@ -1,0 +1,27 @@
+#!/bin/bash
+
+PATH_TO_IAC=`pwd`
+PROJECT_DIR="$(basename $PATH_TO_IAC)"
+CONTAINER_WORKSPACE="/workspace/$PROJECT_DIR"
+
+VERSION="latest"
+DOCKER_FULL_IMAGE_NAME="meterian/isaac:${VERSION}"
+
+if [[ "$*" =~ "--canary" ]];
+then
+    DOCKER_FULL_IMAGE_NAME="meterian/isaac-canary:${VERSION}"
+    echo "Using canary version of ISAAC"
+fi
+
+docker inspect --type=image $DOCKER_FULL_IMAGE_NAME  1>/dev/null 2>/dev/null 
+if [ $? -ne 0 ]; then
+    echo -n -e "Updating image...\r"
+    docker pull --quiet $DOCKER_FULL_IMAGE_NAME 1>/dev/null 2>/dev/null
+fi
+
+docker run --rm -it \
+    --volume "$PATH_TO_IAC":"$CONTAINER_WORKSPACE" \
+    --workdir "$CONTAINER_WORKSPACE" \
+    --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN \
+    --env CLIENT_VM_PARAMS="$CLIENT_VM_PARAMS" \
+    $DOCKER_FULL_IMAGE_NAME $*
