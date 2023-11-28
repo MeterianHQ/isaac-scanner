@@ -24,7 +24,7 @@ if [ $? -ne 0 ]; then
     docker pull --quiet $DOCKER_FULL_IMAGE_NAME 1>/dev/null 2>/dev/null
 fi
 
-docker run --rm -it \
+docker run --rm \
     --volume "$PATH_TO_IAC":"$CONTAINER_WORKSPACE" \
     --workdir "$CONTAINER_WORKSPACE" \
     --env METERIAN_API_TOKEN=$METERIAN_API_TOKEN \
