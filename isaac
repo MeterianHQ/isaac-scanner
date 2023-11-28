@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ "$*" =~ "--debug" ]];
+then
+    set -x
+fi
+
 PATH_TO_IAC=`pwd`
 PROJECT_DIR="$(basename $PATH_TO_IAC)"
 CONTAINER_WORKSPACE="/workspace/$PROJECT_DIR"
