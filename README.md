@@ -36,7 +36,7 @@ export METERIAN_API_TOKEN=12345678-90ab-cdef-1234-567890abcdef
 ```
 
 ### Producing reports
-At the moment you can generate the following reports with `isaac` by speficying the appropriate flag at command line invokation
+At the moment you can generate the following reports with `isaac` by specifying the appropriate flag at command line invocation
 
 `--report-json`</br>
 Produces a JSON report file of the analysis</br>
